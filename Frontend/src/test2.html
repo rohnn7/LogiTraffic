@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital@1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <title>CKEditro</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/21.0.0/classic/ckeditor.js"></script>
+</head>
+  <style>
+    .fonts{
+        font-family: 'Barlow', sans-serif;
+    }
+  </style>
+  <body>
+ 
+    <form action="" method="post" enctype="multipart/form-data">
+        <textarea class="in_content editable" id="editor" name="editor" ></textarea>
+         
+    </form>
+  <button class="btn"><b>Login</b></button>
+
+    
+    <div class="test fonts"></div>
+     
+<script>
+var myeditor;
+
+                               ClassicEditor.create( document.querySelector( '#editor' ), {
+		ckfinder: {
+			uploadUrl: 'http://localhost:8080/img/',
+		}
+	} )
+                                .then( editor => {
+                                        console.log( editor );
+                                        myeditor = editor
+                                } )
+                                .catch( error => {
+                                        console.error( error );
+                                } );
+
+ 
+    document.querySelector( '.btn' ).addEventListener( 'click', () => {
+    const data = myeditor.getData();
+    console.log(data)
+      var obj = {
+         'data':data.replace(/<[^>]*>?/gm, '')
+     }
+     console.log(obj);
+     document.querySelector('.test').innerHTML = data;
+    // ...
+} )
+  </script>
+  </body>
+</html>
